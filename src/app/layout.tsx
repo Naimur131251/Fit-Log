@@ -2,6 +2,7 @@
   import { Geist, Geist_Mono, Oswald, } from "next/font/google";
   import "./globals.css";
   import Navbar from "@/components/shared/Navbar";
+import Footer from "@/components/shared/Footer";
 
   const oswald = Oswald({
     subsets: ["latin"],
@@ -35,6 +36,7 @@
           <main>
             {children}
           </main>
+          <Footer />
         </body>
       </html>
     );
