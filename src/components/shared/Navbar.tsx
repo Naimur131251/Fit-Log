@@ -17,7 +17,7 @@ const Navbar = () => {
         <Link href="/" className="text-[#C2F800] bg-[#1A2312] rounded-full px-4">Workouts</Link>
       </li>
       <li>
-        <Link href="/" className="text-[#9CA3AF]">My Plan</Link>
+        <Link href="/my-plan" className="text-[#9CA3AF]">My Plan</Link>
       </li>
     </>
   );
