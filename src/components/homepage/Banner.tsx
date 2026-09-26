@@ -11,7 +11,7 @@ const inter = Inter({
 
 const Banner = () => {
   return (
-    <div className="container mx-auto">
+    <div className="container mx-auto mt-32">
       <section className="flex items-center justify-between p-14 rounded-xl border border-[#222630] bg-[#15171D]">
         {/* Left Content */}
         <div className="space-y-5">

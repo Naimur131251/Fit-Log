@@ -1,8 +1,12 @@
+'use client';
+
 import Image from "next/image";
 import Link from "next/link";
 import React from "react";
 import Logo from "@/assets/logo.png";
 import { Inter } from "next/font/google";
+import PlanCounters from "./PlanCounters";
+import { usePathname } from "next/navigation";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -11,19 +15,43 @@ const inter = Inter({
 });
 
 const Navbar = () => {
+
+  const pathname = usePathname();
+  const isWorkoutsActive = pathname === "/";
+  const isMyPlanActive = pathname === "/my-plan";
+
   const Links = (
     <>
       <li>
-        <Link href="/" className="text-[#C2F800] bg-[#1A2312] rounded-full px-4">Workouts</Link>
+        <Link
+          href="/"
+          className={`rounded-full px-4 py-2 ${
+            isWorkoutsActive
+              ? "bg-[#1A2312] text-[#C2F800]"
+              : "text-[#9CA3AF] hover:text-white"
+          }`}
+        >
+          Workouts
+        </Link>
       </li>
       <li>
-        <Link href="/my-plan" className="text-[#9CA3AF]">My Plan</Link>
+        <Link
+          href="/my-plan"
+          className={`rounded-full px-4 py-2 ${
+            isMyPlanActive
+              ? "bg-[#1A2312] text-[#C2F800]"
+              : "text-[#9CA3AF] hover:text-white"
+          }`}
+        >
+          My Plan
+        </Link>
       </li>
     </>
   );
 
   return (
-    <nav className="border border-t-0 border-l-0 border-r-0 border-b-[#1C1F26] border-b-2">
+    // <nav className="border border-t-0 border-l-0 border-r-0 border-b-[#1C1F26] border-b-2 ">
+    <nav className="fixed top-0 left-0 z-999 w-full border border-t-0 border-x-0 border-b-[#1C1F26] border-b-2 bg-[#0F1115]">
       <div className="navbar container mx-auto">
         <div className="navbar-start">
           <div className="dropdown">
@@ -55,28 +83,19 @@ const Navbar = () => {
 
           <div className="flex items-center text-xl">
             <Link href="/" className="btn btn-ghost text-xl">
-                <Image src={Logo} alt="Logo" /> FITLOG
+              <Image src={Logo} alt="Logo" /> FITLOG
             </Link>
           </div>
         </div>
         <div className="navbar-center hidden lg:flex">
-          <ul className={`${inter.className} menu menu-horizontal px-1 text-xs`}>{Links}</ul>
+          <ul
+            className={`${inter.className} menu menu-horizontal px-1 text-xs`}
+          >
+            {Links}
+          </ul>
         </div>
         <div className="navbar-end">
-          <button 
-            className={`${inter.className} text-[#D1D5DB] text-xs mr-3 inline-flex items-center gap-1.5`}
-          >Plan 
-            <span 
-              className="text-black bg-[#C2F800] rounded-full inline-flex w-5 h-5 justify-center items-center font-bold align-middle"
-            >0</span>
-          </button>
-          <button 
-            className={`${inter.className} text-[#9CA3AF] text-xs mr-3 inline-flex items-center gap-1.5 ml-2`}
-          >Saved
-            <span 
-              className="text-[#D1D5DB] border border-[#2D313B] rounded-full inline-flex w-6 h-6 justify-center items-center font-bold align-middle"
-            >0</span>
-          </button>
+          <PlanCounters />
         </div>
       </div>
     </nav>

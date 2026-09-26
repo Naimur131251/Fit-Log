@@ -28,11 +28,10 @@ import { PlanProvider } from "@/context/PlanContext";
   export default function RootLayout({ children }: LayoutProps<"/">) {
     return (
       <html
-        data-theme="dark"
         lang="en"
         className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
       >
-        <body className={`${oswald.className} min-h-full flex flex-col`}>
+        <body className={`${oswald.className} min-h-full flex flex-col bg-[#0C0D10]`}>
           <PlanProvider>
             <Navbar />
             <main>

@@ -33,7 +33,7 @@ const BookDetailsPage = async ({ params }: IBookDetailsPage) => {
   console.log(book, "book");
 
   return (
-    <div className="container mx-auto my-12 flex justify-between gap-22">
+    <div className="container mx-auto my-12 flex justify-between gap-22 mt-32">
       <Image
         src={book.image}
         alt={book.name}
