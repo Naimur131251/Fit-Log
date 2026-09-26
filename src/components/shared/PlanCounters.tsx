@@ -15,23 +15,25 @@ const PlanCounters = () => {
   const { plan, saved } = usePlan();
 
   return (
-    <div className="flex items-center gap-4">
+    <div className={`${inter.className} flex items-center gap-2 sm:gap-4`}>
+      {/* Plan */}
       <Link
         href="/my-plan?tab=plan"
-        className={`${inter.className} text-[#D1D5DB] text-xs mr-3 inline-flex items-center gap-1.5`}
+        className="inline-flex items-center gap-1.5 text-xs text-[#D1D5DB] sm:gap-2"
       >
-        Plan{" "}
-        <span className="text-black bg-[#C2F800] rounded-full inline-flex w-5 h-5 justify-center items-center font-bold align-middle">
+        Plan
+        <span className="inline-flex h-5 w-5 items-center justify-center rounded-full bg-[#C2F800] text-[10px] font-bold text-black sm:h-6 sm:w-6 sm:text-xs">
           {plan.length}
         </span>
       </Link>
 
+      {/* Saved */}
       <Link
         href="/my-plan?tab=saved"
-        className={`${inter.className} text-[#9CA3AF] text-xs mr-3 inline-flex items-center gap-1.5 ml-2`}
+        className="inline-flex items-center gap-1.5 text-xs text-[#9CA3AF] sm:gap-2"
       >
-        Saved{" "}
-        <span className="text-[#D1D5DB] border border-[#2D313B] rounded-full inline-flex w-6 h-6 justify-center items-center font-bold align-middle">
+        Saved
+        <span className="inline-flex h-5 w-5 items-center justify-center rounded-full border border-[#2D313B] text-[10px] font-bold text-[#D1D5DB] sm:h-6 sm:w-6 sm:text-xs">
           {saved.length}
         </span>
       </Link>

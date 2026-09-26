@@ -10,11 +10,12 @@ const inter = Inter({
 
 const MyPlanPage = () => {
   return (
-    <div>
-      <section className="flex flex-col gap-6 container mx-auto mt-30">
+    <div className="min-h-screen">
+      <section className="container mx-auto mt-24 flex flex-col gap-6 px-4 sm:mt-28 sm:px-6 lg:mt-30 lg:px-8">
         <div>
-          <h2 className="font-bold text-3xl mb-2">MY PLAN</h2>
-          <p className={`${inter.className} text-sm text-[#8A92A0]`}>
+          <h2 className="mb-2 text-2xl font-bold sm:text-3xl">MY PLAN</h2>
+
+          <p className={`${inter.className} text-xs text-[#8A92A0] sm:text-sm`}>
             Cap of five lifts for today. Finish them, then load more.
           </p>
         </div>

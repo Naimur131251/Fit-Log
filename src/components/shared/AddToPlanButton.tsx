@@ -10,16 +10,10 @@ interface IAddToPlanButton {
   book: IBook;
 }
 
-const AddToPlanButton = ({
-  book,
-}: IAddToPlanButton) => {
-  const {
-    addToPlan,
-    isInPlan,
-  } = usePlan();
+const AddToPlanButton = ({ book }: IAddToPlanButton) => {
+  const { addToPlan, isInPlan } = usePlan();
 
-  const alreadyInPlan =
-    isInPlan(book.id);
+  const alreadyInPlan = isInPlan(book.id);
 
   return (
     <button
@@ -33,14 +27,12 @@ const AddToPlanButton = ({
     >
       {alreadyInPlan ? (
         "Added to plan ✔"
-       ) : (
+      ) : (
         <>
-        <LuCalendarPlus2 className="text-[16px] mb-0.5" />
-        Add to today&apos;s plan
+          <LuCalendarPlus2 className="text-[16px] mb-0.5" />
+          Add to today&apos;s plan
         </>
-         
-
-       )}
+      )}
     </button>
   );
 };

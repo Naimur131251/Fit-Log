@@ -31,11 +31,7 @@ const RemoveFromPlanButton = ({
         </button>
       )}
 
-      <button
-        type="button"
-        onClick={handleRemove}
-        className="cursor-pointer"
-      >
+      <button type="button" onClick={handleRemove} className="cursor-pointer">
         <RxCross2 className="text-[#6B7280] text-lg" />
       </button>
     </>

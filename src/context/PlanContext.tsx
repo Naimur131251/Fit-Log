@@ -51,41 +51,10 @@ export const PlanProvider = ({ children }: IPlanProvider) => {
   }, []);
 
   const addToPlan = (book: IBook) => {
-    const alreadyAdded = plan.some(
-      (item) => item.id === book.id,
-    );
+    const alreadyAdded = plan.some((item) => item.id === book.id);
 
     if (alreadyAdded) {
-      toast.error(
-        "❌ This workout is already in your plan!",
-        {
-          position: "top-right",
-          autoClose: 5000,
-          hideProgressBar: false,
-          closeOnClick: false,
-          pauseOnHover: true,
-          draggable: true,
-          progress: undefined,
-          theme: "colored",
-          transition: Bounce,
-        },
-      );
-
-      return;
-    }
-
-    const updatedPlan = [...plan, book];
-
-    setPlan(updatedPlan);
-
-    localStorage.setItem(
-      "fitlog-plan",
-      JSON.stringify(updatedPlan),
-    );
-
-    toast.success(
-      "Workout added to today's plan!",
-      {
+      toast.error("❌ This workout is already in your plan!", {
         position: "top-right",
         autoClose: 5000,
         hideProgressBar: false,
@@ -95,53 +64,60 @@ export const PlanProvider = ({ children }: IPlanProvider) => {
         progress: undefined,
         theme: "colored",
         transition: Bounce,
-      },
-    );
-  };
+      });
 
-  const removeFromPlan = (bookId: number) => {
-    const updatedPlan = plan.filter(
-      (book) => book.id !== bookId,
-    );
+      return;
+    }
+
+    const updatedPlan = [...plan, book];
 
     setPlan(updatedPlan);
 
-    localStorage.setItem(
-      "fitlog-plan",
-      JSON.stringify(updatedPlan),
-    );
+    localStorage.setItem("fitlog-plan", JSON.stringify(updatedPlan));
 
-    toast.success(
-      "Workout removed from your plan.",
-      {
-        position: "top-right",
-        autoClose: 5000,
-        hideProgressBar: false,
-        closeOnClick: false,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-        theme: "light",
-        transition: Bounce,
-      },
-    );
+    toast.success("Workout added to today's plan!", {
+      position: "top-right",
+      autoClose: 5000,
+      hideProgressBar: false,
+      closeOnClick: false,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      theme: "colored",
+      transition: Bounce,
+    });
+  };
+
+  const removeFromPlan = (bookId: number) => {
+    const updatedPlan = plan.filter((book) => book.id !== bookId);
+
+    setPlan(updatedPlan);
+
+    localStorage.setItem("fitlog-plan", JSON.stringify(updatedPlan));
+
+    toast.success("Workout removed from your plan.", {
+      position: "top-right",
+      autoClose: 5000,
+      hideProgressBar: false,
+      closeOnClick: false,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      theme: "light",
+      transition: Bounce,
+    });
   };
 
   const saveForLater = (book: IBook) => {
-    const alreadySaved = saved.some(
-      (item) => item.id === book.id,
-    );
+    const alreadySaved = saved.some((item) => item.id === book.id);
 
     if (alreadySaved) {
-      toast.error(
-        "This workout is already saved.",
-        {
-          position: "top-right",
-          autoClose: 5000,
-          theme: "colored",
-          transition: Bounce,
-        },
-      );
+      toast.error("This workout is already saved.", {
+        position: "top-right",
+        autoClose: 5000,
+        theme: "colored",
+        transition: Bounce,
+      });
 
       return;
     }
@@ -150,59 +126,41 @@ export const PlanProvider = ({ children }: IPlanProvider) => {
 
     setSaved(updatedSaved);
 
-    localStorage.setItem(
-      "fitlog-saved",
-      JSON.stringify(updatedSaved),
-    );
+    localStorage.setItem("fitlog-saved", JSON.stringify(updatedSaved));
 
-    toast.success(
-      "Workout saved for later!",
-      {
-        position: "top-right",
-        autoClose: 5000,
-        hideProgressBar: false,
-        closeOnClick: false,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-        theme: "light",
-        transition: Bounce,
-      },
-    );
+    toast.success("Workout saved for later!", {
+      position: "top-right",
+      autoClose: 5000,
+      hideProgressBar: false,
+      closeOnClick: false,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      theme: "light",
+      transition: Bounce,
+    });
   };
 
   const removeFromSaved = (bookId: number) => {
-    const updatedSaved = saved.filter(
-      (book) => book.id !== bookId,
-    );
+    const updatedSaved = saved.filter((book) => book.id !== bookId);
 
     setSaved(updatedSaved);
 
-    localStorage.setItem(
-      "fitlog-saved",
-      JSON.stringify(updatedSaved),
-    );
+    localStorage.setItem("fitlog-saved", JSON.stringify(updatedSaved));
 
-    toast.success(
-      "Workout removed from saved.",
-      {
-        position: "top-right",
-        autoClose: 5000,
-        transition: Bounce,
-      },
-    );
+    toast.success("Workout removed from saved.", {
+      position: "top-right",
+      autoClose: 5000,
+      transition: Bounce,
+    });
   };
 
   const isInPlan = (bookId: number) => {
-    return plan.some(
-      (book) => book.id === bookId,
-    );
+    return plan.some((book) => book.id === bookId);
   };
 
   const isSaved = (bookId: number) => {
-    return saved.some(
-      (book) => book.id === bookId,
-    );
+    return saved.some((book) => book.id === bookId);
   };
 
   return (
@@ -230,9 +188,7 @@ export const usePlan = () => {
   const context = useContext(PlanContext);
 
   if (!context) {
-    throw new Error(
-      "usePlan must be used inside PlanProvider",
-    );
+    throw new Error("usePlan must be used inside PlanProvider");
   }
 
   return context;

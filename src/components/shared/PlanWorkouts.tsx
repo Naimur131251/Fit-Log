@@ -74,35 +74,46 @@ const PlanWorkouts = () => {
 
   return (
     <section className="flex flex-col gap-6">
-      <div className="bg-[#13161D] border border-[#232732] p-6 pt-8.5 rounded-2xl grid grid-cols-3">
-        <div>
-          <p className={`${inter.className} font-sans text-[#8A92A0] text-xs`}>
+      {/* Statistics */}
+      <div className="bg-[#13161D] border border-[#232732] p-4 pt-6 sm:p-6 sm:pt-8.5 rounded-2xl grid grid-cols-3">
+        <div className="min-w-0">
+          <p
+            className={`${inter.className} font-sans text-[#8A92A0] text-[10px] sm:text-xs`}
+          >
             Exercises
           </p>
-          <p className="text-[#CCFF00] font-bold text-4xl">{totalWorkouts}</p>
+          <p className="text-[#CCFF00] font-bold text-2xl sm:text-4xl">
+            {totalWorkouts}
+          </p>
         </div>
-        <div className="border border-l-[#232732] border-y-0 border-r-0 pl-8">
-          <p className={`${inter.className} font-sans text-[#8A92A0] text-xs`}>
+
+        <div className="border border-l-[#232732] border-y-0 border-r-0 pl-3 sm:pl-8">
+          <p
+            className={`${inter.className} font-sans text-[#8A92A0] text-[10px] sm:text-xs`}
+          >
             Minutes
           </p>
-          <p className="font-bold text-4xl">{totalDuration}</p>
+          <p className="font-bold text-2xl sm:text-4xl">{totalDuration}</p>
         </div>
-        <div className="border border-l-[#232732] border-y-0 border-r-0 pl-8">
-          <p className={`${inter.className} font-sans text-[#8A92A0] text-xs`}>
+
+        <div className="border border-l-[#232732] border-y-0 border-r-0 pl-3 sm:pl-8">
+          <p
+            className={`${inter.className} font-sans text-[#8A92A0] text-[10px] sm:text-xs`}
+          >
             Calories
           </p>
-          <p className="font-bold text-4xl">{totalCalories}</p>
+          <p className="font-bold text-2xl sm:text-4xl">{totalCalories}</p>
         </div>
       </div>
 
-      <div className="flex justify-between">
+      {/* Tabs and Sort */}
+      <div className="flex flex-col gap-4 sm:flex-row sm:justify-between sm:items-center">
         <div
-          className={`${inter.className} bg-[#151921] border border-[#232732] rounded-xl p-1 gap-1 text-xs`}
+          className={`${inter.className} bg-[#151921] border border-[#232732] rounded-xl p-1 gap-1 text-xs flex w-full sm:w-fit`}
         >
-          {/* <button className="text-[#8A92A0] px-4 py-1.5">Todays Plan</button> */}
           <button
             onClick={() => handleTabChange("plan")}
-            className={`px-4 py-1.5 rounded-lg cursor-pointer ${
+            className={`flex-1 sm:flex-none px-3 sm:px-4 py-1.5 rounded-lg cursor-pointer ${
               activeTab === "plan"
                 ? "bg-[#1F242D] border border-[#2B303D] text-white"
                 : "text-[#8A92A0]"
@@ -110,12 +121,10 @@ const PlanWorkouts = () => {
           >
             Todays Plan
           </button>
-          {/* <button className="bg-[#1F242D] border border-[#2B303D] text-white rounded-lg px-4 py-1.5">
-            Saved
-          </button> */}
+
           <button
             onClick={() => handleTabChange("saved")}
-            className={`px-4 py-1.5 rounded-lg cursor-pointer ${
+            className={`flex-1 sm:flex-none px-3 sm:px-4 py-1.5 rounded-lg cursor-pointer ${
               activeTab === "saved"
                 ? "bg-[#1F242D] border border-[#2B303D] text-white"
                 : "text-[#8A92A0]"
@@ -125,33 +134,37 @@ const PlanWorkouts = () => {
           </button>
         </div>
 
-        <div className={`${inter.className} relative gap-3 text-xs`}>
-          <span className="text-[#8A92A0] px-4 py-1.5">Sort By</span>
-          <select
-            value={sortBy}
-            onChange={(e) => setSortBy(e.target.value)}
-            className="bg-[#13161D] border border-[#232732] cursor-pointer text-white rounded-lg w-24 h-8.5 appearance-none pl-3"
-          >
-            <option value="duration">Duration</option>
-            <option value="name">Name</option>
-            <option value="calories">Calories</option>
-            <option value="equipment">Equipment</option>
-            <option value="rating">Rating</option>
-          </select>
+        {/* Sort */}
+        <div
+          className={`${inter.className} relative flex items-center gap-2 sm:gap-3 text-xs`}
+        >
+          <span className="text-[#8A92A0] sm:px-2 py-1.5">Sort By</span>
 
-          <IoIosArrowDown className="pointer-events-none absolute right-3 top-2.5 text-sm" />
+          <div className="relative flex-1 sm:flex-none">
+            <select
+              value={sortBy}
+              onChange={(e) => setSortBy(e.target.value)}
+              className="bg-[#13161D] border border-[#232732] cursor-pointer text-white rounded-lg w-full sm:w-32 h-8.5 appearance-none pl-3 pr-8"
+            >
+              <option value="duration">Duration</option>
+              <option value="name">Name</option>
+              <option value="calories">Calories</option>
+              <option value="equipment">Equipment</option>
+              <option value="rating">Rating</option>
+            </select>
+
+            <IoIosArrowDown className="pointer-events-none absolute right-3 top-2.5 text-sm" />
+          </div>
         </div>
       </div>
 
+      {/* Empty State */}
       {currentWorkouts.length === 0 ? (
-        <div className="border border-dashed border-[#474747] rounded-xl bg-[#111317] py-24.5 flex flex-col justify-center items-center">
-          <h2 className="text-[20px] font-bold">NOTHING HERE YET</h2>
+        <div className="border border-dashed border-[#474747] rounded-xl bg-[#111317] px-4 py-16 sm:py-24.5 flex flex-col justify-center items-center text-center">
+          <h2 className="text-lg sm:text-[20px] font-bold">NOTHING HERE YET</h2>
 
-          <p className={`${inter.className} text-xs text-[#A1A1AA]`}>
+          <p className={`${inter.className} text-xs text-[#A1A1AA] mt-2`}>
             Browse the library and add a lift to get today moving.
-            {/* {activeTab === "plan"
-              ? "Browse the library and add a lift to get today moving."
-              : "Save worouts that you want to try later."} */}
           </p>
 
           {activeTab === "plan" && (
@@ -164,48 +177,60 @@ const PlanWorkouts = () => {
           )}
         </div>
       ) : (
-        <div className="flex flex-col">
+        <div className="flex flex-col gap-3">
           {sortedWorkouts.map((book: IBook) => (
             <div key={book.id}>
-              {/* <BookCard book={book} /> */}
-              <div className="flex justify-between items-center p-4 bg-[#14171E] border border-[#232732] rounded-2xl">
-                <div className="flex gap-4">
+              <div className="flex flex-col gap-4 sm:flex-row sm:justify-between sm:items-center p-3 sm:p-4 bg-[#14171E] border border-[#232732] rounded-2xl">
+                {/* Workout Details */}
+                <div className="flex min-w-0 gap-3 sm:gap-4">
                   <Image
                     src={book.image}
                     alt={book.name}
                     width={144}
                     height={80}
-                    className="h-20 object-cover rounded-xl"
+                    className="w-24 h-20 sm:w-36 sm:h-20 shrink-0 object-cover rounded-xl"
                   />
-                  <div className="space-y-2">
-                    <h2 className="font-bold text-[16px]">{book.name}</h2>
+
+                  <div className="min-w-0 space-y-2">
+                    <h2 className="font-bold text-sm sm:text-[16px] wrap-break-word">
+                      {book.name}
+                    </h2>
+
                     <p
                       className={`${inter.className} font-semibold text-xs text-[#8A92A0]`}
                     >
                       {book.equipment}
                     </p>
+
                     <p
-                      className={`${inter.className} text-xs text-[#CCFF00] flex items-center`}
+                      className={`${inter.className} text-xs text-[#CCFF00] flex flex-wrap items-center gap-y-2`}
                     >
-                      <FaRegClock className="mr-1" />
+                      <FaRegClock className="mr-1 shrink-0" />
+
                       <span className="text-[#D1D5DB] mr-3">
                         {book.duration} min
                       </span>
-                      <AiFillFire className="rotate-y-180 mr-1" />
+
+                      <AiFillFire className="rotate-y-180 mr-1 shrink-0" />
+
                       <span className="text-[#D1D5DB] mr-3">
                         {book.caloriesBurned} kcal
                       </span>
-                      <FaRegStar className="mr-1 " />
+
+                      <FaRegStar className="mr-1 shrink-0" />
+
                       <span className="text-[#D1D5DB]">{book.rating}</span>
                     </p>
                   </div>
                 </div>
+
+                {/* Action Buttons */}
                 <div
-                  className={`${inter.className} text-xs flex gap-3 h-8.5 items-center`}
+                  className={`${inter.className} text-xs flex flex-wrap gap-2 sm:gap-3 items-center sm:shrink-0`}
                 >
                   <Link
                     href={`/book-details/${book.id}`}
-                    className="border border-[#374151] rounded-full px-6 py-3"
+                    className="flex-1 sm:flex-none text-center border border-[#374151] rounded-full px-4 sm:px-6 py-2.5 sm:py-3"
                   >
                     View Details
                   </Link>
