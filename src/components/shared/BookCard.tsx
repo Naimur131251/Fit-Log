@@ -3,6 +3,7 @@ import React from "react";
 import { Inter } from "next/font/google";
 import { IBook } from "@/types/bookstype";
 import Link from "next/link";
+import { FaRegClock, FaRegStar } from "react-icons/fa";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -65,9 +66,9 @@ const BookCard = ({ book }: IBookCard) => {
           <div
             className={`${inter.className} flex gap-5 text-xs text-[#9CA3AF]`}
           >
-            <p>⏱ {book.duration} min</p>
+            <p className="flex items-center gap-1"><FaRegClock /> {book.duration} min</p>
             <p>♦ {book.caloriesBurned} kcal</p>
-            <p>★ {book.rating}</p>
+            <p className="flex items-center gap-1"><FaRegStar className="mb-0.5" /> {book.rating}</p>
           </div>
         </div>
       </div>

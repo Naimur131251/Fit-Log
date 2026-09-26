@@ -1,6 +1,6 @@
 "use client";
 
-import React from "react";
+import React, { useState } from "react";
 import Link from "next/link";
 import { useRouter, useSearchParams } from "next/navigation";
 import { usePlan } from "@/context/PlanContext";
@@ -8,6 +8,10 @@ import { IBook } from "@/types/bookstype";
 import { Inter } from "next/font/google";
 import Image from "next/image";
 import RemoveFromPlanButton from "./RemoveFromPlanButton";
+import { IoIosArrowDown } from "react-icons/io";
+import { AiFillFire } from "react-icons/ai";
+import { FaRegClock, FaRegStar } from "react-icons/fa";
+import RemoveFromSavedButton from "./RemoveFromSavedButton";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -18,6 +22,7 @@ const inter = Inter({
 const PlanWorkouts = () => {
   const router = useRouter();
   const searchParams = useSearchParams();
+  const [sortBy, setSortBy] = useState("duration");
 
   const { plan = [], saved = [] } = usePlan();
 
@@ -26,6 +31,30 @@ const PlanWorkouts = () => {
   const activeTab = tab === "saved" ? "saved" : "plan";
 
   const currentWorkouts = activeTab === "plan" ? plan : saved;
+
+  const sortedWorkouts = [...currentWorkouts].sort((a, b) => {
+    if (sortBy === "duration") {
+      return a.duration - b.duration;
+    }
+
+    if (sortBy === "calories") {
+      return a.caloriesBurned - b.caloriesBurned;
+    }
+
+    if (sortBy === "rating") {
+      return b.rating - a.rating;
+    }
+
+    if (sortBy === "name") {
+      return a.name.localeCompare(b.name);
+    }
+
+    if (sortBy === "equipment") {
+      return a.equipment.localeCompare(b.equipment);
+    }
+
+    return 0;
+  });
 
   const handleTabChange = (newTab: "plan" | "saved") => {
     router.push(`/my-plan?tab=${newTab}`);
@@ -96,11 +125,21 @@ const PlanWorkouts = () => {
           </button>
         </div>
 
-        <div className={`${inter.className} gap-3 text-xs`}>
+        <div className={`${inter.className} relative gap-3 text-xs`}>
           <span className="text-[#8A92A0] px-4 py-1.5">Sort By</span>
-          <select className="bg-[#13161D] border border-[#232732] text-white rounded-lg w-23.5 h-8.5 appearance-none text-center">
-            <option value="">Duration 🔻</option>
+          <select
+            value={sortBy}
+            onChange={(e) => setSortBy(e.target.value)}
+            className="bg-[#13161D] border border-[#232732] cursor-pointer text-white rounded-lg w-24 h-8.5 appearance-none pl-3"
+          >
+            <option value="duration">Duration</option>
+            <option value="name">Name</option>
+            <option value="calories">Calories</option>
+            <option value="equipment">Equipment</option>
+            <option value="rating">Rating</option>
           </select>
+
+          <IoIosArrowDown className="pointer-events-none absolute right-3 top-2.5 text-sm" />
         </div>
       </div>
 
@@ -126,7 +165,7 @@ const PlanWorkouts = () => {
         </div>
       ) : (
         <div className="flex flex-col">
-          {currentWorkouts.map((book: IBook) => (
+          {sortedWorkouts.map((book: IBook) => (
             <div key={book.id}>
               {/* <BookCard book={book} /> */}
               <div className="flex justify-between items-center p-4 bg-[#14171E] border border-[#232732] rounded-2xl">
@@ -145,16 +184,19 @@ const PlanWorkouts = () => {
                     >
                       {book.equipment}
                     </p>
-                    <p className={`${inter.className} text-xs text-[#CCFF00]`}>
-                      🕓{" "}
+                    <p
+                      className={`${inter.className} text-xs text-[#CCFF00] flex items-center`}
+                    >
+                      <FaRegClock className="mr-1" />
                       <span className="text-[#D1D5DB] mr-3">
                         {book.duration} min
                       </span>
-                      🔥{" "}
+                      <AiFillFire className="rotate-y-180 mr-1" />
                       <span className="text-[#D1D5DB] mr-3">
                         {book.caloriesBurned} kcal
                       </span>
-                      ⭐ <span className="text-[#D1D5DB]">{book.rating}</span>
+                      <FaRegStar className="mr-1 " />
+                      <span className="text-[#D1D5DB]">{book.rating}</span>
                     </p>
                   </div>
                 </div>
@@ -168,10 +210,11 @@ const PlanWorkouts = () => {
                     View Details
                   </Link>
 
-                  <RemoveFromPlanButton
-                    bookId={book.id}
-                    showMarkAsDone={activeTab === "plan"}
-                  />
+                  {activeTab === "plan" ? (
+                    <RemoveFromPlanButton bookId={book.id} showMarkAsDone />
+                  ) : (
+                    <RemoveFromSavedButton bookId={book.id} />
+                  )}
                 </div>
               </div>
             </div>

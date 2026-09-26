@@ -4,6 +4,8 @@
   import Navbar from "@/components/shared/Navbar";
 import Footer from "@/components/shared/Footer";
 import { PlanProvider } from "@/context/PlanContext";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
   const oswald = Oswald({
     subsets: ["latin"],
@@ -39,6 +41,7 @@ import { PlanProvider } from "@/context/PlanContext";
             </main>
             <Footer />
           </PlanProvider>       
+          <ToastContainer className={`z-99999`} />
         </body>
       </html>
     );

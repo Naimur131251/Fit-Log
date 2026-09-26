@@ -1,8 +1,8 @@
 "use client";
 
 import React from "react";
-
 import { usePlan } from "@/context/PlanContext";
+import { RxCross2 } from "react-icons/rx";
 
 interface IRemoveFromPlanButton {
   bookId: number;
@@ -13,11 +13,10 @@ const RemoveFromPlanButton = ({
   bookId,
   showMarkAsDone = true,
 }: IRemoveFromPlanButton) => {
-  const { removeFromPlan, removeFromSaved } = usePlan();
+  const { removeFromPlan } = usePlan();
 
   const handleRemove = () => {
     removeFromPlan(bookId);
-    removeFromSaved(bookId);
   };
 
   return (
@@ -31,8 +30,13 @@ const RemoveFromPlanButton = ({
           ✔ Mark as Done
         </button>
       )}
-      <button type="button" onClick={handleRemove} className="cursor-pointer">
-        ❌
+
+      <button
+        type="button"
+        onClick={handleRemove}
+        className="cursor-pointer"
+      >
+        <RxCross2 className="text-[#6B7280] text-lg" />
       </button>
     </>
   );
