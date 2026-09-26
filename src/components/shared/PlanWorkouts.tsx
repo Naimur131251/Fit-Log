@@ -24,11 +24,11 @@ const PlanWorkouts = () => {
   const searchParams = useSearchParams();
   const [sortBy, setSortBy] = useState("duration");
 
-  const { plan = [], saved = [] } = usePlan();
+  const { plan = [], saved = [], loading } = usePlan();
 
   const tab = searchParams.get("tab");
 
-  const activeTab = tab === "saved" ? "saved" : "plan";
+  const activeTab = tab === "plan" ? "plan" : "saved";
 
   const currentWorkouts = activeTab === "plan" ? plan : saved;
 
@@ -119,7 +119,7 @@ const PlanWorkouts = () => {
                 : "text-[#8A92A0]"
             }`}
           >
-            Todays Plan
+            Today&apos;s Plan
           </button>
 
           <button
@@ -159,7 +159,13 @@ const PlanWorkouts = () => {
       </div>
 
       {/* Empty State */}
-      {currentWorkouts.length === 0 ? (
+      {loading ? (
+        <div className="border border-dashed border-[#474747] rounded-xl bg-[#111317] px-4 py-16 sm:py-24.5 flex flex-col justify-center items-center text-center">
+          <p className={`${inter.className} text-xs text-[#A1A1AA]`}>
+            Loading workouts…
+          </p>
+        </div>
+      ) : currentWorkouts.length === 0 ? (
         <div className="border border-dashed border-[#474747] rounded-xl bg-[#111317] px-4 py-16 sm:py-24.5 flex flex-col justify-center items-center text-center">
           <h2 className="text-lg sm:text-[20px] font-bold">NOTHING HERE YET</h2>
 
@@ -167,14 +173,12 @@ const PlanWorkouts = () => {
             Browse the library and add a lift to get today moving.
           </p>
 
-          {activeTab === "plan" && (
-            <Link
-              href="/"
-              className="bg-[#C2F10D] text-black font-semibold text-xs mt-6 px-6 py-2.5 rounded-full"
-            >
-              Go to workouts
-            </Link>
-          )}
+          <Link
+            href="/"
+            className="bg-[#C2F10D] text-black font-semibold text-xs mt-6 px-6 py-2.5 rounded-full"
+          >
+            Go to workouts
+          </Link>
         </div>
       ) : (
         <div className="flex flex-col gap-3">

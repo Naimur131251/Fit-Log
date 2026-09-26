@@ -15,6 +15,7 @@ import { IBook } from "@/types/bookstype";
 interface IPlanContext {
   plan: IBook[];
   saved: IBook[];
+  loading: boolean;
 
   addToPlan: (book: IBook) => void;
   removeFromPlan: (bookId: number) => void;
@@ -35,6 +36,7 @@ interface IPlanProvider {
 export const PlanProvider = ({ children }: IPlanProvider) => {
   const [plan, setPlan] = useState<IBook[]>([]);
   const [saved, setSaved] = useState<IBook[]>([]);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     try {
@@ -47,6 +49,8 @@ export const PlanProvider = ({ children }: IPlanProvider) => {
     } catch {
       setPlan([]);
       setSaved([]);
+    } finally {
+      setLoading(false);
     }
   }, []);
 
@@ -168,6 +172,7 @@ export const PlanProvider = ({ children }: IPlanProvider) => {
       value={{
         plan,
         saved,
+        loading,
 
         addToPlan,
         removeFromPlan,
