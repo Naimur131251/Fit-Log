@@ -20,6 +20,7 @@ interface IPlanContext {
   removeFromPlan: (bookId: number) => void;
 
   saveForLater: (book: IBook) => void;
+  removeFromSaved: (bookId: number) => void;
 
   isInPlan: (bookId: number) => boolean;
   isSaved: (bookId: number) => boolean;
@@ -141,6 +142,18 @@ export const PlanProvider = ({ children }: IPlanProvider) => {
     });
   };
 
+  const removeFromSaved = (bookId: number) => {
+    setSaved((currentSaved) => {
+      const updatedSaved = currentSaved.filter((book) => book.id !== bookId);
+
+      localStorage.setItem("fitlog-saved", JSON.stringify(updatedSaved));
+
+      toast.success("Workout removed from saved.");
+
+      return updatedSaved;
+    });
+  };
+
   const isInPlan = (bookId: number) => {
     return plan.some((book) => book.id === bookId);
   };
@@ -159,6 +172,7 @@ export const PlanProvider = ({ children }: IPlanProvider) => {
         removeFromPlan,
 
         saveForLater,
+        removeFromSaved,
 
         isInPlan,
         isSaved,

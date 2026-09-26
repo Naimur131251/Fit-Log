@@ -13,10 +13,11 @@ const RemoveFromPlanButton = ({
   bookId,
   showMarkAsDone = true,
 }: IRemoveFromPlanButton) => {
-  const { removeFromPlan } = usePlan();
+  const { removeFromPlan, removeFromSaved } = usePlan();
 
   const handleRemove = () => {
     removeFromPlan(bookId);
+    removeFromSaved(bookId);
   };
 
   return (
