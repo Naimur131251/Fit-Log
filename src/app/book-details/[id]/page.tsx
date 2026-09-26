@@ -3,6 +3,7 @@ import Image from "next/image";
 import React from "react";
 import { Inter } from "next/font/google";
 import AddToPlanButton from "@/components/shared/AddToPlanButton";
+import SaveForLaterButton from "@/components/shared/SaveForLaterButton";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -144,12 +145,8 @@ const BookDetailsPage = async ({ params }: IBookDetailsPage) => {
         </div>
 
         <div className={`${inter.className} text-sm font-semibold flex gap-4`}>
-          
           <AddToPlanButton key={book.id} book={book} />
-          
-          <button className="text-[#E5E7EB] font-medium border border-[#374151] rounded-xl px-6 py-3">
-            🔰 Save for later
-          </button>
+          <SaveForLaterButton book={book} />
         </div>
       </div>
     </div>

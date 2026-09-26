@@ -15,26 +15,11 @@ const inter = Inter({
   weight: ["100", "200", "300", "400", "500", "600", "700", "800", "900"],
 });
 
-const AddSavedToPlanButton = ({ book }: { book: IBook }) => {
-  return (
-    <button
-      type="button"
-      className="bg-[#C2F10D] text-black font-semibold text-xs px-4 py-2 rounded-full"
-      onClick={() => {
-        // Placeholder until the saved-to-plan action is wired in.
-        console.log(`Add saved workout to plan: ${book.id}`);
-      }}
-    >
-      Add to Plan
-    </button>
-  );
-};
-
 const PlanWorkouts = () => {
   const router = useRouter();
   const searchParams = useSearchParams();
 
-  const { plan, saved } = usePlan();
+  const { plan = [], saved = [] } = usePlan();
 
   const tab = searchParams.get("tab");
 
@@ -176,18 +161,18 @@ const PlanWorkouts = () => {
                 <div
                   className={`${inter.className} text-xs flex gap-3 h-8.5 items-center`}
                 >
-                  <Link href={`/book-details/${book.id}`} className="border border-[#374151] rounded-full px-6 py-3">
+                  <Link
+                    href={`/book-details/${book.id}`}
+                    className="border border-[#374151] rounded-full px-6 py-3"
+                  >
                     View Details
                   </Link>
-            
-                  <RemoveFromPlanButton bookId={book.id} />
-                </div>
-              </div>
 
-              <div className="mt-3 flex justify-end gap-2">
-                {activeTab === "plan" ? null : (
-                  <AddSavedToPlanButton book={book} />
-                )}
+                  <RemoveFromPlanButton
+                    bookId={book.id}
+                    showMarkAsDone={activeTab === "plan"}
+                  />
+                </div>
               </div>
             </div>
           ))}

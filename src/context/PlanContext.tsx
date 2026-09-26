@@ -14,11 +14,15 @@ import { IBook } from "@/types/bookstype";
 
 interface IPlanContext {
   plan: IBook[];
+  saved: IBook[];
 
   addToPlan: (book: IBook) => void;
   removeFromPlan: (bookId: number) => void;
 
+  saveForLater: (book: IBook) => void;
+
   isInPlan: (bookId: number) => boolean;
+  isSaved: (bookId: number) => boolean;
 }
 
 const PlanContext = createContext<IPlanContext | undefined>(undefined);
@@ -29,15 +33,19 @@ interface IPlanProvider {
 
 export const PlanProvider = ({ children }: IPlanProvider) => {
   const [plan, setPlan] = useState<IBook[]>([]);
+  const [saved, setSaved] = useState<IBook[]>([]);
 
   useEffect(() => {
     try {
       const storedPlan = localStorage.getItem("fitlog-plan");
+      const storedSaved = localStorage.getItem("fitlog-saved");
 
       // eslint-disable-next-line react-hooks/set-state-in-effect
       setPlan(storedPlan ? JSON.parse(storedPlan) : []);
+      setSaved(storedSaved ? JSON.parse(storedSaved) : []);
     } catch {
       setPlan([]);
+      setSaved([]);
     }
   }, []);
 
@@ -103,17 +111,57 @@ export const PlanProvider = ({ children }: IPlanProvider) => {
     });
   };
 
+  const saveForLater = (book: IBook) => {
+    setSaved((currentSaved) => {
+      const alreadySaved = currentSaved.some((item) => item.id === book.id);
+
+      if (alreadySaved) {
+        toast.error("This workout is already saved.");
+
+        return currentSaved;
+      }
+
+      const updatedSaved = [...currentSaved, book];
+
+      localStorage.setItem("fitlog-saved", JSON.stringify(updatedSaved));
+
+      toast.success("Workout saved for later", {
+        position: "top-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: false,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+        transition: Bounce,
+      });
+
+      return updatedSaved;
+    });
+  };
+
   const isInPlan = (bookId: number) => {
     return plan.some((book) => book.id === bookId);
+  };
+
+  const isSaved = (bookId: number) => {
+    return saved.some((book) => book.id === bookId);
   };
 
   return (
     <PlanContext.Provider
       value={{
         plan,
+        saved,
+
         addToPlan,
         removeFromPlan,
+
+        saveForLater,
+
         isInPlan,
+        isSaved,
       }}
     >
       {children}
