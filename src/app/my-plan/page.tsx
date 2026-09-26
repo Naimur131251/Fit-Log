@@ -1,5 +1,6 @@
 import React from "react";
 import { Inter } from "next/font/google";
+import PlanWorkouts from "@/components/shared/PlanWorkouts";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -18,7 +19,7 @@ const MyPlanPage = () => {
           </p>
         </div>
 
-        <div className="bg-[#13161D] border border-[#232732] p-6 pt-8.5 rounded-2xl grid grid-cols-3">
+        {/* <div className="bg-[#13161D] border border-[#232732] p-6 pt-8.5 rounded-2xl grid grid-cols-3">
           <div>
             <p
               className={`${inter.className} font-sans text-[#8A92A0] text-xs`}
@@ -73,6 +74,10 @@ const MyPlanPage = () => {
           >
             Go to workouts
           </button>
+        </div> */}
+
+        <div>
+          <PlanWorkouts />
         </div>
       </section>
     </div>

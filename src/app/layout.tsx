@@ -3,6 +3,7 @@
   import "./globals.css";
   import Navbar from "@/components/shared/Navbar";
 import Footer from "@/components/shared/Footer";
+import { PlanProvider } from "@/context/PlanContext";
 
   const oswald = Oswald({
     subsets: ["latin"],
@@ -32,11 +33,13 @@ import Footer from "@/components/shared/Footer";
         className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
       >
         <body className={`${oswald.className} min-h-full flex flex-col`}>
-          <Navbar />
-          <main>
-            {children}
-          </main>
-          <Footer />
+          <PlanProvider>
+            <Navbar />
+            <main>
+              {children}      
+            </main>
+            <Footer />
+          </PlanProvider>       
         </body>
       </html>
     );

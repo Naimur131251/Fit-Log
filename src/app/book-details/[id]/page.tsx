@@ -2,6 +2,7 @@ import { IBook } from "@/types/bookstype";
 import Image from "next/image";
 import React from "react";
 import { Inter } from "next/font/google";
+import AddToPlanButton from "@/components/shared/AddToPlanButton";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -143,9 +144,9 @@ const BookDetailsPage = async ({ params }: IBookDetailsPage) => {
         </div>
 
         <div className={`${inter.className} text-sm font-semibold flex gap-4`}>
-          <button className="text-[#0F1115] bg-[#CCFF00] rounded-xl px-6 py-3">
-            💭 Add to todays plan
-          </button>
+          
+          <AddToPlanButton key={book.id} book={book} />
+          
           <button className="text-[#E5E7EB] font-medium border border-[#374151] rounded-xl px-6 py-3">
             🔰 Save for later
           </button>
