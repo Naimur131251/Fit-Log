@@ -7,6 +7,7 @@ import { usePlan } from "@/context/PlanContext";
 import { IBook } from "@/types/bookstype";
 import { Inter } from "next/font/google";
 import Image from "next/image";
+import RemoveFromPlanButton from "./RemoveFromPlanButton";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -175,13 +176,11 @@ const PlanWorkouts = () => {
                 <div
                   className={`${inter.className} text-xs flex gap-3 h-8.5 items-center`}
                 >
-                  <button className="border border-[#374151] rounded-full px-6 py-3">
+                  <Link href={`/book-details/${book.id}`} className="border border-[#374151] rounded-full px-6 py-3">
                     View Details
-                  </button>
-                  <button className="font-semibold text-black bg-[#CCFF00] rounded-full px-6 py-3">
-                    ✔ Mark as Done
-                  </button>
-                  <p>❌</p>
+                  </Link>
+            
+                  <RemoveFromPlanButton bookId={book.id} />
                 </div>
               </div>
 

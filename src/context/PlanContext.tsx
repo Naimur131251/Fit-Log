@@ -16,6 +16,7 @@ interface IPlanContext {
   plan: IBook[];
 
   addToPlan: (book: IBook) => void;
+  removeFromPlan: (bookId: number) => void;
 
   isInPlan: (bookId: number) => boolean;
 }
@@ -80,6 +81,28 @@ export const PlanProvider = ({ children }: IPlanProvider) => {
     });
   };
 
+  const removeFromPlan = (bookId: number) => {
+    setPlan((currentPlan) => {
+      const updatedPlan = currentPlan.filter((book) => book.id !== bookId);
+
+      localStorage.setItem("fitlog-plan", JSON.stringify(updatedPlan));
+
+      toast.success("Workout removed from your plan.", {
+        position: "top-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: false,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+        transition: Bounce,
+      });
+
+      return updatedPlan;
+    });
+  };
+
   const isInPlan = (bookId: number) => {
     return plan.some((book) => book.id === bookId);
   };
@@ -89,6 +112,7 @@ export const PlanProvider = ({ children }: IPlanProvider) => {
       value={{
         plan,
         addToPlan,
+        removeFromPlan,
         isInPlan,
       }}
     >
