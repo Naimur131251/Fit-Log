@@ -4,6 +4,7 @@ import React from "react";
 import { Inter } from "next/font/google";
 import AddToPlanButton from "@/components/shared/AddToPlanButton";
 import SaveForLaterButton from "@/components/shared/SaveForLaterButton";
+import { notFound } from "next/navigation";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -30,6 +31,10 @@ const BookDetailsPage = async ({ params }: IBookDetailsPage) => {
   const book = booksData.find(
     (book: IBook) => String(book.id) === String(id),
   ) as IBook;
+
+  if (!book) {
+    notFound();
+  }
 
   return (
     <div className="container mx-auto mt-24 px-4 sm:mt-28 sm:px-6 lg:mt-32 lg:px-8">
