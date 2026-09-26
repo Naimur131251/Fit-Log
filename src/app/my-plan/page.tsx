@@ -1,4 +1,4 @@
-import React from "react";
+import React, { Suspense } from "react";
 import { Inter } from "next/font/google";
 import PlanWorkouts from "@/components/shared/PlanWorkouts";
 
@@ -21,7 +21,9 @@ const MyPlanPage = () => {
         </div>
 
         <div>
-          <PlanWorkouts />
+          <Suspense fallback={<div>Loading...</div>}>
+            <PlanWorkouts />
+          </Suspense>
         </div>
       </section>
     </div>
